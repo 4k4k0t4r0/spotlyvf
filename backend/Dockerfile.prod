@@ -18,8 +18,8 @@ RUN apt-get update \
 WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements_production.txt .
+RUN pip install --no-cache-dir -r requirements_production.txt
 
 # Production stage
 FROM python:3.11-slim

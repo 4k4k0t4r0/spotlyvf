@@ -104,8 +104,66 @@ EOF
 chmod +x download_ai_models.sh
 print_warning "Ejecuta './download_ai_models.sh' después para configurar los modelos de IA"
 
+print_message "8.5. Verificando dependencias de Python..."
+# Crear requirements_production.txt más limpio si no existe
+if [ ! -f backend/requirements_production.txt ]; then
+    print_message "Creando requirements_production.txt optimizado..."
+    cat > backend/requirements_production.txt << 'EOF'
+# Core Django
+Django==5.0.7
+djangorestframework==3.15.2
+django-cors-headers==4.3.1
+django-environ==0.11.2
+
+# Database
+mysqlclient==2.2.4
+
+# Authentication & Security
+PyJWT==2.8.0
+djoser==2.2.2
+djangorestframework-simplejwt==5.3.0
+
+# Task Queue
+celery==5.3.1
+redis==4.6.0
+
+# File Handling
+Pillow==10.4.0
+
+# Production Server
+gunicorn==22.0.0
+whitenoise==6.5.0
+
+# API & Requests
+requests==2.32.3
+
+# Utilities
+python-decouple==3.8
+django-filter==24.2
+geopy==2.4.1
+
+# Monitoring & Health
+django-health-check==3.18.3
+EOF
+    print_message "requirements_production.txt creado"
+fi
+
 print_message "9. Construyendo contenedores Docker..."
-docker-compose -f docker-compose.prod.yml build --no-cache
+echo "Construyendo imagen del backend (esto puede tomar varios minutos)..."
+if ! docker-compose -f docker-compose.prod.yml build --no-cache backend; then
+    print_error "Error construyendo el backend. Revisando dependencias..."
+    
+    # Intentar construir solo el frontend primero
+    print_message "Construyendo frontend..."
+    docker-compose -f docker-compose.prod.yml build frontend || true
+    
+    # Reintentar backend con cache
+    print_message "Reintentando backend con cache..."
+    docker-compose -f docker-compose.prod.yml build backend
+fi
+
+print_message "Construyendo servicios restantes..."
+docker-compose -f docker-compose.prod.yml build
 
 print_message "10. Configurando firewall..."
 ufw allow 22/tcp
