@@ -234,13 +234,41 @@ ls -la spotlyvf-key.pem
 
 ## ✅ SIGUIENTE PASO
 
-Una vez que tengas la instancia creada y puedas conectarte por SSH, **compárteme**:
+Una vez que tengas la instancia creada y puedas conectarte por SSH, tienes **DOS OPCIONES**:
 
+### 🚀 OPCIÓN A: Deployment Automático (RECOMENDADO)
+```bash
+# Conectarse a la instancia
+ssh -i "spotlyvf-key.pem" ubuntu@TU_ELASTIC_IP
+
+# Descargar y ejecutar script automático
+curl -sSL https://raw.githubusercontent.com/4k4k0t4r0/spotlyvf/main/quick_deploy.sh | sudo bash
+```
+
+### 📝 OPCIÓN B: Configuración Manual
+**Compárteme**:
 1. ✅ **Tu Elastic IP** (XXX.XXX.XXX.XXX)
 2. ✅ **Confirmación** de que puedes conectarte por SSH
 3. ✅ **Tipo de instancia** que elegiste (t2.micro o t3.large)
 
-Entonces procederemos con la **instalación y configuración** de Spotlyvf en tu servidor.
+Entonces procederemos con la **instalación y configuración manual** paso a paso.
+
+---
+
+## 🎯 DEPLOYMENT AUTOMÁTICO COMPLETO
+
+El script `quick_deploy.sh` realizará automáticamente:
+
+✅ **Instalación de dependencias** (Docker, Docker Compose, Git)  
+✅ **Descarga del proyecto** desde GitHub  
+✅ **Configuración de variables de entorno**  
+✅ **Construcción de contenedores Docker**  
+✅ **Configuración de firewall**  
+✅ **Inicio de todos los servicios**  
+✅ **Scripts de monitoreo y backup**  
+✅ **Configuración de SSL opcional**  
+
+**Tiempo estimado**: 10-15 minutos
 
 ---
 
