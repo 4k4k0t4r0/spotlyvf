@@ -1,0 +1,26 @@
+# IA y Machine Learning
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.10.0
+accelerate>=0.20.0
+
+# Análisis de datos
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# OpenAI
+openai>=1.0.0
+
+# Procesamiento de texto
+emoji>=2.0.0
+
+# TensorFlow (alternativo a PyTorch si prefieres)
+# tensorflow>=2.13.0
+
+# GPU support (opcional - descomenta si tienes GPU NVIDIA)
+# torch-audio
+# torchvision
+
+# Utilidades adicionales
+python-dotenv>=1.0.0
